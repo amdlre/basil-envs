@@ -1,0 +1,41 @@
+{
+  "metadata": {
+    "title": "Env Vault",
+    "description": "A single source of truth for every environment variable across your projects."
+  },
+  "common": {
+    "appName": "Env Vault",
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "search": "Search",
+    "back": "Back",
+    "error": {
+      "title": "Something went wrong",
+      "description": "Sorry, an unexpected error occurred. Please try again.",
+      "retry": "Try again"
+    },
+    "notFound": {
+      "title": "Page not found",
+      "description": "The page you're looking for doesn't exist or has been moved.",
+      "backHome": "Back to projects"
+    }
+  },
+  "header": {
+    "projects": "Projects",
+    "settings": "Settings",
+    "switchLanguage": "العربية",
+    "switchLanguageLabel": "Switch to Arabic",
+    "openMenu": "Open menu"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "All environment variables for your projects in one place.",
+    "empty": {
+      "title": "No projects yet",
+      "description": "Create your first project to start storing environment variables securely."
+    }
+  }
+}
