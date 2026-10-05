@@ -21,7 +21,8 @@
       "title": "Page not found",
       "description": "The page you're looking for doesn't exist or has been moved.",
       "backHome": "Back to projects"
-    }
+    },
+    "actionFailed": "Couldn't complete the action"
   },
   "header": {
     "projects": "Projects",
@@ -33,9 +34,52 @@
   "projects": {
     "title": "Projects",
     "subtitle": "All environment variables for your projects in one place.",
+    "new": "New project",
+    "searchPlaceholder": "Search projects...",
+    "clearSearch": "Clear search",
+    "totalCount": "{count, plural, one {# project} other {# projects}}",
+    "resultCount": "{count, plural, one {# result} other {# results}} of {total}",
+    "environmentCount": "{count, plural, one {# environment} other {# environments}}",
+    "variableCount": "{count, plural, one {# variable} other {# variables}}",
+    "updated": "Updated {time}",
+    "backToProjects": "All projects",
+    "environmentsHeading": "Environments",
     "empty": {
       "title": "No projects yet",
-      "description": "Create your first project to start storing environment variables securely."
+      "description": "Create your first project to start storing environment variables securely. Local and Production environments are added automatically."
+    },
+    "noResults": {
+      "title": "No results",
+      "description": "No project matches “{query}”."
+    },
+    "actions": {
+      "menu": "Actions for {name}",
+      "edit": "Edit",
+      "delete": "Delete"
+    },
+    "form": {
+      "createTitle": "New project",
+      "createDescription": "Local and Production environments will be created automatically.",
+      "editTitle": "Edit project",
+      "editDescription": "Update the project's name, slug or description.",
+      "name": "Name",
+      "namePlaceholder": "e.g. Seerah",
+      "slug": "Slug",
+      "slugPlaceholder": "seerah",
+      "slugHint": "Used in the URL. Leave empty to generate it.",
+      "slugHintEdit": "Changing the slug changes the project URL.",
+      "description": "Description",
+      "descriptionPlaceholder": "Short description (optional)",
+      "submitCreate": "Create project",
+      "created": "Project created",
+      "updated": "Changes saved"
+    },
+    "delete": {
+      "title": "Delete project",
+      "description": "This permanently deletes the project with its {environments, plural, one {# environment} other {# environments}} and {variables, plural, one {# variable} other {# variables}}. This can't be undone.",
+      "confirmLabel": "To confirm, type <name></name>",
+      "confirm": "Delete permanently",
+      "deleted": "Project deleted"
     }
   },
   "auth": {
@@ -72,6 +116,10 @@
   "validation": {
     "required": "This field is required.",
     "emailInvalid": "Enter a valid email address.",
-    "tooLong": "This value is too long."
+    "tooLong": "This value is too long.",
+    "invalid": "Invalid value.",
+    "slugInvalid": "Use lowercase letters, numbers and dashes only.",
+    "slugTaken": "This slug is already used by another project.",
+    "confirmationMismatch": "The text doesn't match the name."
   }
 }

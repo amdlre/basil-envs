@@ -21,7 +21,8 @@
       "title": "الصفحة غير موجودة",
       "description": "الصفحة التي تبحث عنها غير موجودة أو تم نقلها.",
       "backHome": "العودة إلى المشاريع"
-    }
+    },
+    "actionFailed": "تعذّر إتمام العملية"
   },
   "header": {
     "projects": "المشاريع",
@@ -33,9 +34,52 @@
   "projects": {
     "title": "المشاريع",
     "subtitle": "جميع متغيرات البيئة لمشاريعك في مكان واحد.",
+    "new": "مشروع جديد",
+    "searchPlaceholder": "ابحث في المشاريع...",
+    "clearSearch": "مسح البحث",
+    "totalCount": "{count, plural, zero {لا مشاريع} one {مشروع واحد} two {مشروعان} few {# مشاريع} many {# مشروعًا} other {# مشروع}}",
+    "resultCount": "{count, plural, zero {لا نتائج} one {نتيجة واحدة} two {نتيجتان} few {# نتائج} many {# نتيجة} other {# نتيجة}} من {total}",
+    "environmentCount": "{count, plural, zero {لا بيئات} one {بيئة واحدة} two {بيئتان} few {# بيئات} many {# بيئة} other {# بيئة}}",
+    "variableCount": "{count, plural, zero {لا متغيرات} one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
+    "updated": "حُدّث {time}",
+    "backToProjects": "كل المشاريع",
+    "environmentsHeading": "البيئات",
     "empty": {
       "title": "لا توجد مشاريع بعد",
-      "description": "أنشئ مشروعك الأول لبدء تخزين متغيرات البيئة بأمان."
+      "description": "أنشئ مشروعك الأول لبدء تخزين متغيرات البيئة بأمان. ستُضاف بيئتا المحلي والإنتاج تلقائياً."
+    },
+    "noResults": {
+      "title": "لا توجد نتائج",
+      "description": "لا يوجد مشروع يطابق «{query}»."
+    },
+    "actions": {
+      "menu": "إجراءات {name}",
+      "edit": "تعديل",
+      "delete": "حذف"
+    },
+    "form": {
+      "createTitle": "مشروع جديد",
+      "createDescription": "ستُنشأ بيئتا المحلي والإنتاج تلقائياً.",
+      "editTitle": "تعديل المشروع",
+      "editDescription": "حدّث اسم المشروع أو معرّفه أو وصفه.",
+      "name": "الاسم",
+      "namePlaceholder": "مثال: سيرة",
+      "slug": "المعرّف",
+      "slugPlaceholder": "seerah",
+      "slugHint": "يُستخدم في الرابط. اتركه فارغاً لإنشائه تلقائياً.",
+      "slugHintEdit": "تغيير المعرّف يغيّر رابط المشروع.",
+      "description": "الوصف",
+      "descriptionPlaceholder": "وصف مختصر (اختياري)",
+      "submitCreate": "إنشاء المشروع",
+      "created": "تم إنشاء المشروع",
+      "updated": "تم حفظ التغييرات"
+    },
+    "delete": {
+      "title": "حذف المشروع",
+      "description": "سيُحذف المشروع نهائياً مع {environments, plural, zero {} one {بيئته الوحيدة} two {بيئتيه} few {# بيئات} many {# بيئة} other {# بيئة}} و{variables, plural, zero {دون متغيرات} one {متغير واحد} two {متغيرين} few {# متغيرات} many {# متغيرًا} other {# متغير}}. لا يمكن التراجع عن هذا الإجراء.",
+      "confirmLabel": "للتأكيد، اكتب <name></name>",
+      "confirm": "حذف نهائي",
+      "deleted": "تم حذف المشروع"
     }
   },
   "auth": {
@@ -72,6 +116,10 @@
   "validation": {
     "required": "هذا الحقل مطلوب.",
     "emailInvalid": "أدخل بريداً إلكترونياً صالحاً.",
-    "tooLong": "القيمة طويلة جداً."
+    "tooLong": "القيمة طويلة جداً.",
+    "invalid": "قيمة غير صالحة.",
+    "slugInvalid": "استخدم أحرفاً إنجليزية صغيرة وأرقاماً وشرطات فقط.",
+    "slugTaken": "هذا المعرّف مستخدم في مشروع آخر.",
+    "confirmationMismatch": "النص المُدخل لا يطابق الاسم."
   }
 }
