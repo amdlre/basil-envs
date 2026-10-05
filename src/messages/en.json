@@ -134,7 +134,8 @@
     "valueTooLong": "The value exceeds the 64 KB limit.",
     "staleRows": "Some variables changed elsewhere. Reload the page.",
     "tooManyVariables": "An environment can hold at most 500 variables.",
-    "rawHasErrors": "Fix the errors in the file first."
+    "rawHasErrors": "Fix the errors in the file first.",
+    "typeInUse": "This type is used by projects. Remove it from those projects first."
   },
   "environments": {
     "tabsLabel": "Project environments",
@@ -339,7 +340,61 @@
       "variables_exported": "Downloaded <code>{file}</code> from <b>{project}</b> ({count})",
       "variable_revealed": "Revealed <code>{key}</code> in <b>{project}</b> · {environment}",
       "variable_copied": "Copied <code>{key}</code> from <b>{project}</b> · {environment}",
-      "unknown": "Action <code>{action}</code>"
+      "unknown": "Action <code>{action}</code>",
+      "catalog_type_created": "Added <b>{environment}</b> to the environment catalog",
+      "catalog_type_updated": "Edited the <b>{environment}</b> environment type",
+      "catalog_type_deleted": "Removed <b>{environment}</b> from the environment catalog",
+      "catalog_reordered": "Reordered the environment catalog",
+      "admin_key_rotated": "Master encryption key rotated — {count} values re-encrypted",
+      "admin_audit_pruned": "Activity log pruned: {count} entries older than {days} days deleted"
+    }
+  },
+  "settings": {
+    "catalog": {
+      "section": "Settings",
+      "title": "Environment catalog",
+      "subtitle": "The environment types available to every project. This order is the tab order in each project, and default types are added to new projects automatically.",
+      "add": "New environment type",
+      "moveUp": "Move {name} up",
+      "moveDown": "Move {name} down",
+      "moved": "Moved {name} to position {position}",
+      "badges": {
+        "default": "Default",
+        "protected": "Protected"
+      },
+      "usage": "{count, plural, =0 {Not used yet} one {Used by # project} other {Used by # projects}}",
+      "edit": "Edit {name}",
+      "delete": "Delete {name}",
+      "cannotDeleteProtected": "Protected types can't be deleted.",
+      "cannotDeleteUsed": "This type is used by projects.",
+      "deleteTitle": "Delete {name}",
+      "deleteDescription": "This permanently removes the environment type from the catalog. No project is affected because it isn't used.",
+      "deleteConfirm": "Delete type",
+      "deleted": "{name} deleted",
+      "form": {
+        "createTitle": "New environment type",
+        "editTitle": "Edit environment type",
+        "description": "Names appear on tabs; the slug is used in URLs and file names (.env.slug).",
+        "slug": "Slug",
+        "slugHint": "Lowercase letters, digits and dashes. Can't be changed later.",
+        "slugLocked": "The slug can't be changed after creation.",
+        "nameEn": "English name",
+        "nameAr": "Arabic name",
+        "descriptionEn": "English description",
+        "descriptionAr": "Arabic description",
+        "color": "Color",
+        "isDefault": {
+          "label": "Default",
+          "hint": "Added automatically to every new project."
+        },
+        "isProtected": {
+          "label": "Protected",
+          "hint": "Can't be deleted from projects."
+        },
+        "submitCreate": "Add type",
+        "created": "Environment type added",
+        "updated": "Environment type saved"
+      }
     }
   }
 }

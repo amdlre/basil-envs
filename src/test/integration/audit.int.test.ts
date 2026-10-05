@@ -4,6 +4,7 @@ import { createProjectAction, deleteProjectAction } from '@/actions/projects';
 import { getDb } from '@/db';
 import { AUDIT_PAGE_SIZE, listAuditEntries } from '@/db/queries/audit';
 import { auditLogs } from '@/db/schema';
+import { AUDIT_CATEGORIES, categoryOf } from '@/lib/audit/format';
 
 import { expectOk, projectBySlug } from './helpers';
 
@@ -54,6 +55,28 @@ describe('listAuditEntries', () => {
     expect(
       (await listAuditEntries({ category: 'projects', before: null })).entries.map((e) => e.action),
     ).toEqual(['project.created']);
+  });
+
+  it('SQL category filters agree with categoryOf() for every known action', async () => {
+    const actions = [
+      'auth.login',
+      'admin.key_rotated',
+      'project.created',
+      'environment.added',
+      'catalog.type_created',
+      'variables.saved',
+      'variable.revealed',
+    ];
+    await getDb()
+      .insert(auditLogs)
+      .values(actions.map((action) => ({ action, entity: 'test', metadata: {} })));
+
+    for (const category of AUDIT_CATEGORIES) {
+      const { entries } = await listAuditEntries({ category, before: null });
+      expect(entries.map((e) => e.action).sort()).toEqual(
+        actions.filter((a) => categoryOf(a) === category).sort(),
+      );
+    }
   });
 
   it('paginates without gaps or duplicates, even within the same timestamp', async () => {

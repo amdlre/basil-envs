@@ -11,8 +11,21 @@ import type { Metadata, Viewport } from 'next';
 
 import '../globals.css';
 
-const cairo = Cairo({ subsets: ['arabic', 'latin'], variable: '--font-app', display: 'swap' });
-const inter = Inter({ subsets: ['latin'], variable: '--font-app', display: 'swap' });
+// Both fonts are declared in this layout but only one is used per locale, so preloading
+// would always fetch an unused font (and warn). They load on demand with a metric-matched
+// fallback instead (display: swap + adjustFontFallback keeps layout shift negligible).
+const cairo = Cairo({
+  subsets: ['arabic', 'latin'],
+  variable: '--font-app',
+  display: 'swap',
+  preload: false,
+});
+const inter = Inter({
+  subsets: ['latin'],
+  variable: '--font-app',
+  display: 'swap',
+  preload: false,
+});
 const mono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono-app', display: 'swap' });
 
 type Props = {

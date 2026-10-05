@@ -6,7 +6,7 @@ export const AUDIT_CATEGORIES = ['auth', 'projects', 'environments', 'variables'
 export function categoryOf(action: string): AuditCategory | null {
   if (action.startsWith('auth.') || action.startsWith('admin.')) return 'auth';
   if (action.startsWith('project.')) return 'projects';
-  if (action.startsWith('environment.')) return 'environments';
+  if (action.startsWith('environment.') || action.startsWith('catalog.')) return 'environments';
   if (action.startsWith('variable')) return 'variables';
   return null;
 }
@@ -60,6 +60,13 @@ export function describeAuditEntry(
   const project = ctx.projectName ?? '';
 
   switch (action) {
+    case 'admin.key_rotated':
+      return { messageKey: 'admin_key_rotated', params: { count: num.parse(metadata.rotated) } };
+    case 'admin.audit_pruned':
+      return {
+        messageKey: 'admin_audit_pruned',
+        params: { count: num.parse(metadata.deleted), days: num.parse(metadata.days) },
+      };
     case 'auth.login':
     case 'auth.logout':
     case 'admin.created':
@@ -140,6 +147,18 @@ export function describeAuditEntry(
         params: { project, environment: ctx.envName(m.environment), key: m.key },
       };
     }
+    case 'catalog.type_created':
+    case 'catalog.type_updated':
+    case 'catalog.type_deleted': {
+      const m = meta.env.parse(metadata);
+      // Prefer the live (localized) catalog name; fall back to the name stored at the time
+      // (the type may have been deleted since), then to the slug.
+      const live = ctx.envName(m.type);
+      const name = live !== m.type ? live : str.parse(metadata.name) || m.type;
+      return { messageKey: action.replace('.', '_'), params: { environment: name } };
+    }
+    case 'catalog.reordered':
+      return { messageKey: 'catalog_reordered', params: {} };
     default:
       return { messageKey: 'unknown', params: { action } };
   }

@@ -23,7 +23,7 @@ export const AUDIT_PAGE_SIZE = 50;
 const CATEGORY_FILTER: Record<AuditCategory, SQL | undefined> = {
   auth: or(like(auditLogs.action, 'auth.%'), like(auditLogs.action, 'admin.%')),
   projects: like(auditLogs.action, 'project.%'),
-  environments: like(auditLogs.action, 'environment.%'),
+  environments: or(like(auditLogs.action, 'environment.%'), like(auditLogs.action, 'catalog.%')),
   variables: like(auditLogs.action, 'variable%'),
 };
 

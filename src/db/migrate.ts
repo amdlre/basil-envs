@@ -7,7 +7,8 @@ import { closeDb, getDb } from './index';
 /** Applies pending SQL migrations. Used locally and on container start. */
 async function run() {
   await migrate(getDb(), {
-    migrationsFolder: path.join(process.cwd(), 'src/db/migrations'),
+    // MIGRATIONS_DIR is set in the Docker image (SQL files ship next to the server).
+    migrationsFolder: process.env.MIGRATIONS_DIR ?? path.join(process.cwd(), 'src/db/migrations'),
   });
   console.info('✓ Migrations applied');
 }

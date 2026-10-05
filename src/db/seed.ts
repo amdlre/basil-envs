@@ -1,36 +1,25 @@
-import { sql } from 'drizzle-orm';
-
 import { environmentTypes } from './schema';
 import { ENVIRONMENT_TYPES_SEED } from './seed-data';
 
 import { closeDb, getDb } from './index';
 
 /**
- * Idempotent: upserts the catalog by slug. Re-running restores seeded names,
- * descriptions, colors and flags but never deletes custom types added via Settings.
+ * Idempotent and non-destructive: inserts catalog types that don't exist yet (by slug)
+ * and never overwrites existing rows, so edits made in Settings → Environment Catalog
+ * (names, colors, order, flags) survive re-seeding and container restarts.
  */
 async function seed() {
-  const db = getDb();
-
-  const rows = await db
+  const rows = await getDb()
     .insert(environmentTypes)
     .values([...ENVIRONMENT_TYPES_SEED])
-    .onConflictDoUpdate({
-      target: environmentTypes.slug,
-      set: {
-        nameEn: sql`excluded.name_en`,
-        nameAr: sql`excluded.name_ar`,
-        descriptionEn: sql`excluded.description_en`,
-        descriptionAr: sql`excluded.description_ar`,
-        color: sql`excluded.color`,
-        sortOrder: sql`excluded.sort_order`,
-        isDefault: sql`excluded.is_default`,
-        isProtected: sql`excluded.is_protected`,
-      },
-    })
+    .onConflictDoNothing({ target: environmentTypes.slug })
     .returning({ slug: environmentTypes.slug });
 
-  console.info(`✓ Seeded ${rows.length} environment types`);
+  console.info(
+    rows.length > 0
+      ? `✓ Seeded ${rows.length} environment types`
+      : '✓ Environment catalog already seeded',
+  );
 }
 
 seed()

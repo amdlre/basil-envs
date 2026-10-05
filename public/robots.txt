@@ -1,0 +1,3 @@
+# Private secrets vault — nothing to index.
+User-agent: *
+Disallow: /

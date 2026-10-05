@@ -13,6 +13,7 @@ describe('categoryOf', () => {
     ['admin.password_reset', 'auth'],
     ['project.created', 'projects'],
     ['environment.deleted', 'environments'],
+    ['catalog.type_created', 'environments'],
     ['variables.saved', 'variables'],
     ['variable.copied', 'variables'],
     ['something.else', null],
@@ -77,6 +78,22 @@ describe('describeAuditEntry', () => {
       messageKey: 'auth_login_failed',
       params: { email: 'x@y.z' },
       details: { ip: '1.2.3.4', reason: 'bad_password' },
+    });
+  });
+
+  it('describes catalog changes (deleted types keep their stored name)', () => {
+    expect(describeAuditEntry('catalog.type_created', { type: 'production' }, ctx)).toEqual({
+      messageKey: 'catalog_type_created',
+      params: { environment: 'Production' },
+    });
+    expect(
+      describeAuditEntry('catalog.type_deleted', { type: 'gone', name: 'Gone Env' }, ctx).params,
+    ).toEqual({ environment: 'Gone Env' });
+    expect(
+      describeAuditEntry('catalog.type_updated', { type: 'gone', name: 'Gone Env' }, ctx).params,
+    ).toEqual({ environment: 'Gone Env' });
+    expect(describeAuditEntry('catalog.type_updated', { type: 'gone' }, ctx).params).toEqual({
+      environment: 'gone',
     });
   });
 

@@ -19,7 +19,10 @@
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check",
     "create-admin": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/create-admin.ts",
-    "test:integration": "vitest run --config vitest.integration.config.mts"
+    "test:integration": "vitest run --config vitest.integration.config.mts",
+    "rotate-key": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/rotate-key.ts",
+    "prune-audit": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/prune-audit.ts",
+    "build:cli": "node scripts/build-cli.mjs"
   },
   "dependencies": {
     "@amdlre/design-system": "^0.3.6",
@@ -46,6 +49,7 @@
     "@types/react-dom": "^19",
     "dotenv": "^18.0.4",
     "drizzle-kit": "^0.31.11",
+    "esbuild": "^0.28.2",
     "eslint": "^9",
     "eslint-config-next": "16.3.7",
     "eslint-config-prettier": "^10.1.8",

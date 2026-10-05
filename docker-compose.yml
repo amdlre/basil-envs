@@ -1,0 +1,42 @@
+# Env Vault — app + PostgreSQL.
+#   cp .env.docker.example .env   # then fill in the secrets
+#   docker compose up -d --build
+#   docker compose exec app node cli/create-admin.mjs --email you@example.com
+name: env-vault
+
+services:
+  db:
+    image: postgres:17-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: vault
+      POSTGRES_DB: vault
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?Set POSTGRES_PASSWORD in .env}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U vault -d vault']
+      interval: 5s
+      timeout: 5s
+      retries: 10
+    # No published port: only the app can reach the database.
+
+  app:
+    build: .
+    image: env-vault:latest
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://vault:${POSTGRES_PASSWORD}@db:5432/vault
+      MASTER_ENCRYPTION_KEY: ${MASTER_ENCRYPTION_KEY:?Set MASTER_ENCRYPTION_KEY in .env}
+      JWT_SECRET: ${JWT_SECRET:?Set JWT_SECRET in .env}
+      NEXT_PUBLIC_APP_URL: ${NEXT_PUBLIC_APP_URL:-http://localhost:3000}
+      APP_TIME_ZONE: ${APP_TIME_ZONE:-UTC}
+    # Bound to localhost: put a TLS-terminating reverse proxy (Caddy, Nginx, Traefik) in front.
+    ports:
+      - '127.0.0.1:${APP_PORT:-3000}:3000'
+
+volumes:
+  pgdata:

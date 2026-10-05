@@ -17,6 +17,7 @@ function createDb(): Database {
   globalForDb.__vaultSql ??= postgres(getServerEnv().DATABASE_URL, {
     max: 10,
     idle_timeout: 20,
+    onnotice: () => undefined, // e.g. "schema already exists" from idempotent migrations
   });
   return drizzle({ client: globalForDb.__vaultSql, schema });
 }

@@ -134,7 +134,8 @@
     "valueTooLong": "القيمة أطول من الحد المسموح (64 كيلوبايت).",
     "staleRows": "تغيّرت بعض المتغيرات من مكان آخر. أعد تحميل الصفحة.",
     "tooManyVariables": "تجاوزت الحد الأقصى لعدد المتغيرات في البيئة (500).",
-    "rawHasErrors": "أصلح أخطاء الملف أولاً."
+    "rawHasErrors": "أصلح أخطاء الملف أولاً.",
+    "typeInUse": "هذا النوع مستخدم في مشاريع. احذفه من المشاريع أولاً."
   },
   "environments": {
     "tabsLabel": "بيئات المشروع",
@@ -339,7 +340,61 @@
       "variables_exported": "تنزيل <code>{file}</code> من <b>{project}</b> ({count})",
       "variable_revealed": "إظهار قيمة <code>{key}</code> في <b>{project}</b> · {environment}",
       "variable_copied": "نسخ قيمة <code>{key}</code> من <b>{project}</b> · {environment}",
-      "unknown": "عملية <code>{action}</code>"
+      "unknown": "عملية <code>{action}</code>",
+      "catalog_type_created": "إضافة نوع البيئة <b>{environment}</b> إلى الكتالوج",
+      "catalog_type_updated": "تعديل نوع البيئة <b>{environment}</b>",
+      "catalog_type_deleted": "حذف نوع البيئة <b>{environment}</b> من الكتالوج",
+      "catalog_reordered": "إعادة ترتيب كتالوج البيئات",
+      "admin_key_rotated": "تدوير مفتاح التشفير الرئيسي — أُعيد تشفير {count} قيمة",
+      "admin_audit_pruned": "تنظيف سجل النشاط: حُذف {count} إدخال أقدم من {days} يومًا"
+    }
+  },
+  "settings": {
+    "catalog": {
+      "section": "الإعدادات",
+      "title": "كتالوج البيئات",
+      "subtitle": "أنواع البيئات المتاحة لكل المشاريع. الترتيب هنا هو ترتيب التبويبات في كل مشروع، والبيئات الافتراضية تُضاف تلقائياً للمشاريع الجديدة.",
+      "add": "نوع بيئة جديد",
+      "moveUp": "نقل {name} للأعلى",
+      "moveDown": "نقل {name} للأسفل",
+      "moved": "نُقلت {name} إلى الموضع {position}",
+      "badges": {
+        "default": "افتراضية",
+        "protected": "محمية"
+      },
+      "usage": "{count, plural, zero {غير مستخدمة} one {مستخدمة في مشروع واحد} two {مستخدمة في مشروعين} few {مستخدمة في # مشاريع} many {مستخدمة في # مشروعًا} other {مستخدمة في # مشروع}}",
+      "edit": "تعديل {name}",
+      "delete": "حذف {name}",
+      "cannotDeleteProtected": "لا يمكن حذف نوع محمي.",
+      "cannotDeleteUsed": "النوع مستخدم في مشاريع.",
+      "deleteTitle": "حذف النوع {name}",
+      "deleteDescription": "سيُحذف نوع البيئة من الكتالوج نهائياً. لا يؤثر ذلك على أي مشروع لأنه غير مستخدم.",
+      "deleteConfirm": "حذف النوع",
+      "deleted": "تم حذف {name}",
+      "form": {
+        "createTitle": "نوع بيئة جديد",
+        "editTitle": "تعديل نوع البيئة",
+        "description": "الأسماء تظهر في التبويبات، والمعرّف يُستخدم في الروابط وأسماء الملفات (‎.env.slug).",
+        "slug": "المعرّف",
+        "slugHint": "أحرف إنجليزية صغيرة وأرقام وشرطات. لا يمكن تغييره لاحقاً.",
+        "slugLocked": "لا يمكن تغيير المعرّف بعد الإنشاء.",
+        "nameEn": "الاسم بالإنجليزية",
+        "nameAr": "الاسم بالعربية",
+        "descriptionEn": "الوصف بالإنجليزية",
+        "descriptionAr": "الوصف بالعربية",
+        "color": "اللون",
+        "isDefault": {
+          "label": "افتراضية",
+          "hint": "تُضاف تلقائياً إلى كل مشروع جديد."
+        },
+        "isProtected": {
+          "label": "محمية",
+          "hint": "لا يمكن حذفها من المشاريع."
+        },
+        "submitCreate": "إضافة النوع",
+        "created": "تمت إضافة نوع البيئة",
+        "updated": "تم حفظ نوع البيئة"
+      }
     }
   }
 }
