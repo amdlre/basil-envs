@@ -30,7 +30,8 @@
     "settings": "Settings",
     "switchLanguage": "العربية",
     "switchLanguageLabel": "Switch to Arabic",
-    "openMenu": "Open menu"
+    "openMenu": "Open menu",
+    "unsavedConfirm": "You have unsaved changes that will be lost. Continue?"
   },
   "projects": {
     "title": "Projects",
@@ -110,7 +111,9 @@
     "notFound": "Item not found.",
     "conflict": "An item with the same name already exists.",
     "forbidden": "This action isn't allowed.",
-    "unknown": "An unexpected error occurred. Please try again."
+    "unknown": "An unexpected error occurred. Please try again.",
+    "stale": "These variables were changed elsewhere. Reload to get the latest version.",
+    "decryptionFailed": "Couldn't decrypt. The master encryption key (MASTER_ENCRYPTION_KEY) may have changed."
   },
   "validation": {
     "required": "This field is required.",
@@ -119,7 +122,13 @@
     "invalid": "Invalid value.",
     "slugInvalid": "Use lowercase letters, numbers and dashes only.",
     "slugTaken": "This slug is already used by another project.",
-    "confirmationMismatch": "The text doesn't match the name."
+    "confirmationMismatch": "The text doesn't match the name.",
+    "keyInvalid": "Use uppercase letters, digits and _ only, not starting with a digit.",
+    "keyDuplicate": "This key already exists in this environment.",
+    "valueTooLong": "The value exceeds the 64 KB limit.",
+    "staleRows": "Some variables changed elsewhere. Reload the page.",
+    "tooManyVariables": "An environment can hold at most 500 variables.",
+    "rawHasErrors": "Fix the errors in the file first."
   },
   "environments": {
     "tabsLabel": "Project environments",
@@ -145,6 +154,89 @@
       "description": "{count, plural, =0 {This permanently deletes the environment.} one {This permanently deletes the environment and its # variable.} other {This permanently deletes the environment and its # variables.}} This can't be undone.",
       "confirm": "Delete environment",
       "deleted": "{name} environment deleted"
+    }
+  },
+  "variables": {
+    "modes": {
+      "editor": "Editor",
+      "raw": ".env file"
+    },
+    "unsaved": {
+      "title": "Discard unsaved changes?",
+      "description": "You have changes that haven't been saved. They'll be lost if you leave now.",
+      "stay": "Stay",
+      "discard": "Discard and leave"
+    },
+    "row": {
+      "untitled": "new variable",
+      "keyLabel": "Key",
+      "valueLabel": "Value of {key}",
+      "valuePlaceholder": "Value",
+      "reveal": "Reveal value of {key}",
+      "hide": "Hide value of {key}",
+      "revealShort": "Reveal",
+      "hideShort": "Hide",
+      "copy": "Copy value of {key}",
+      "copyShort": "Copy",
+      "delete": "Delete {key}",
+      "deleteShort": "Delete",
+      "undoDelete": "Undo deleting {key}",
+      "undoShort": "Undo",
+      "status": {
+        "new": "New",
+        "modified": "Modified",
+        "deleted": "Will be deleted"
+      }
+    },
+    "editor": {
+      "keyColumn": "Key",
+      "valueColumn": "Value",
+      "addVariable": "Add variable",
+      "pasteHint": "Tip: paste a .env file into a key field to add many variables at once.",
+      "save": "Save",
+      "discard": "Discard",
+      "pending": "{count, plural, one {# unsaved change.} other {# unsaved changes.}}",
+      "redeployHint": "Deployed apps don't pick up changes automatically — redeploy to apply them.",
+      "copied": "Copied {key}",
+      "copyFailed": "Couldn't copy to the clipboard.",
+      "pasted": "{count, plural, one {Added # variable from the clipboard} other {Added # variables from the clipboard}}",
+      "saved": "Variables saved",
+      "savedSummary": "{created} added, {updated} updated, {renamed} renamed, {deleted} deleted.",
+      "saveFailed": "Couldn't save"
+    },
+    "raw": {
+      "loadTitle": "Edit the full file",
+      "loadDescription": "{count, plural, one {This shows # variable's real value in plain text,} other {This shows # variables' real values in plain text,}} and the reveal is recorded in the audit log. You can also paste a new file without loading current values.",
+      "loadButton": "Reveal and edit current values",
+      "placeholder": "Paste your .env content here",
+      "stats": "{lines} lines · {keys} keys",
+      "errorsTitle": "{count, plural, one {# error in the file} other {# errors in the file}}",
+      "warningsTitle": "{count, plural, one {# warning} other {# warnings}}",
+      "issue": "Line {line}: {message}",
+      "errors": {
+        "missingEquals": "Missing “=”.",
+        "invalidKey": "Invalid key name.",
+        "unterminatedQuote": "Unclosed quote in {key}.",
+        "trailingCharacters": "Unexpected text after the quoted value of {key}."
+      },
+      "warnings": {
+        "duplicateKey": "{key} is duplicated — the last value wins.",
+        "keyNormalized": "“{from}” was converted to {key}."
+      },
+      "removeMissing": "Delete variables missing from this file",
+      "removeMissingOn": "The file is the complete state: any key not in it will be deleted.",
+      "removeMissingOff": "Merge: new keys are added and existing ones updated; nothing is deleted.",
+      "preview": "Preview changes",
+      "noChanges": "No changes",
+      "diffTitle": "{count, plural, one {# change} other {# changes}}",
+      "unchanged": "{count, plural, one {# key unchanged} other {# keys unchanged}}",
+      "added": "Added",
+      "changed": "Changed",
+      "removed": "Removed",
+      "apply": "Apply changes",
+      "applied": ".env file applied",
+      "appliedSummary": "{created} added, {updated} updated, {deleted} deleted.",
+      "applyFailed": "Couldn't apply"
     }
   }
 }

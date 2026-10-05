@@ -1,9 +1,10 @@
 import { Badge, Tooltip, TooltipContent, TooltipTrigger } from '@amdlre/design-system';
-import { Lock, Variable } from 'lucide-react';
+import { Lock } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
-import { EmptyState } from '@/components/shared/empty-state';
+import { VariablesWorkspace } from '@/components/variables/variables-workspace';
 import type { ProjectEnvironment } from '@/db/queries/environments';
+import { getMaskedVariables } from '@/db/queries/variables';
 import { localizedTypeDescription, localizedTypeName } from '@/lib/environments';
 import { cn } from '@/lib/utils';
 
@@ -13,7 +14,11 @@ import { ENV_COLOR_CLASSES } from './env-colors';
 type Props = { environment: ProjectEnvironment; projectSlug: string };
 
 export async function EnvironmentPanel({ environment, projectSlug }: Props) {
-  const [t, locale] = await Promise.all([getTranslations('environments'), getLocale()]);
+  const [t, locale, { variables, version }] = await Promise.all([
+    getTranslations('environments'),
+    getLocale(),
+    getMaskedVariables(environment.environmentId),
+  ]);
   const name = localizedTypeName(environment, locale);
   const description = localizedTypeDescription(environment, locale);
 
@@ -58,17 +63,13 @@ export async function EnvironmentPanel({ environment, projectSlug }: Props) {
         )}
       </div>
 
-      {environment.variableCount === 0 ? (
-        <EmptyState
-          icon={Variable}
-          title={t('noVariables.title')}
-          description={t('noVariables.description', { name })}
-        />
-      ) : (
-        <p className="text-sm text-muted-foreground">
-          {t('variableCount', { count: environment.variableCount })}
-        </p>
-      )}
+      <VariablesWorkspace
+        key={environment.environmentId}
+        environmentId={environment.environmentId}
+        fileName={`.env.${environment.slug}`}
+        variables={variables}
+        version={version}
+      />
     </section>
   );
 }

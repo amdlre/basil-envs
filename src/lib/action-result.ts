@@ -7,6 +7,8 @@ export type ActionErrorCode =
   | 'notFound'
   | 'conflict'
   | 'forbidden'
+  | 'stale'
+  | 'decryptionFailed'
   | 'unknown';
 
 export type ActionResult<T = undefined> =

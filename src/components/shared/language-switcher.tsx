@@ -7,6 +7,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useTransition } from 'react';
 
 import { usePathname, useRouter } from '@/i18n/navigation';
+import { hasUnsavedChanges } from '@/lib/unsaved-changes';
 
 export function LanguageSwitcher() {
   const t = useTranslations('header');
@@ -19,6 +20,7 @@ export function LanguageSwitcher() {
   const nextLocale = locale === 'ar' ? 'en' : 'ar';
 
   const switchLocale = () => {
+    if (hasUnsavedChanges() && !window.confirm(t('unsavedConfirm'))) return;
     const query = searchParams.toString();
     startTransition(() => {
       router.replace(query ? `${pathname}?${query}` : pathname, { locale: nextLocale });
