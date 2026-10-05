@@ -99,7 +99,8 @@ export function LoginForm({ next }: Props) {
 
       <div className="space-y-2">
         <Label htmlFor="password">{t('password')}</Label>
-        <div className="relative">
+        {/* LTR wrapper so the toggle (end-0) and the input's pe-10 resolve to the same side. */}
+        <div className="relative" dir="ltr">
           <Input
             id="password"
             type={showPassword ? 'text' : 'password'}
