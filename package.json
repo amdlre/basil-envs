@@ -18,7 +18,8 @@
     "db:seed": "tsx --conditions=react-server --env-file-if-exists=.env.local src/db/seed.ts",
     "db:studio": "drizzle-kit studio",
     "db:check": "drizzle-kit check",
-    "create-admin": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/create-admin.ts"
+    "create-admin": "tsx --conditions=react-server --env-file-if-exists=.env.local scripts/create-admin.ts",
+    "test:integration": "vitest run --config vitest.integration.config.mts"
   },
   "dependencies": {
     "@amdlre/design-system": "^0.3.6",
