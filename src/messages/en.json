@@ -37,5 +37,41 @@
       "title": "No projects yet",
       "description": "Create your first project to start storing environment variables securely."
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Sign in",
+      "subtitle": "Enter the admin credentials to access the vault.",
+      "email": "Email",
+      "emailPlaceholder": "admin@example.com",
+      "password": "Password",
+      "showPassword": "Show password",
+      "hidePassword": "Hide password",
+      "submit": "Sign in",
+      "submitting": "Signing in...",
+      "failedTitle": "Couldn't sign in",
+      "secureNote": "Values are encrypted with AES-256-GCM and only decrypted on demand."
+    },
+    "userMenu": {
+      "label": "Account menu",
+      "signedInAs": "Signed in as",
+      "logout": "Sign out",
+      "loggingOut": "Signing out..."
+    }
+  },
+  "errors": {
+    "validation": "Please fix the highlighted fields.",
+    "unauthorized": "Your session has expired. Please sign in again.",
+    "invalidCredentials": "Incorrect email or password.",
+    "rateLimited": "Too many failed attempts. Please try again in 15 minutes.",
+    "notFound": "Item not found.",
+    "conflict": "An item with the same name already exists.",
+    "forbidden": "This action isn't allowed.",
+    "unknown": "An unexpected error occurred. Please try again."
+  },
+  "validation": {
+    "required": "This field is required.",
+    "emailInvalid": "Enter a valid email address.",
+    "tooLong": "This value is too long."
   }
 }
