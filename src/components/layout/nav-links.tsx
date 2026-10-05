@@ -7,6 +7,7 @@ import { cn } from '@/lib/utils';
 
 const NAV_ITEMS = [
   { href: '/projects', key: 'projects' },
+  { href: '/activity', key: 'activity' },
   { href: '/settings/environments', key: 'settings' },
 ] as const;
 

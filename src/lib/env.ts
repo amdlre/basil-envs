@@ -22,6 +22,17 @@ const serverEnvSchema = z.object({
     .string({ required_error: 'JWT_SECRET is required' })
     .min(32, 'must be at least 32 characters'),
   NEXT_PUBLIC_APP_URL: z.string().url().default('http://localhost:3000'),
+  APP_TIME_ZONE: z
+    .string()
+    .default('UTC')
+    .refine((tz) => {
+      try {
+        new Intl.DateTimeFormat('en', { timeZone: tz });
+        return true;
+      } catch {
+        return false;
+      }
+    }, 'must be an IANA time zone, e.g. Asia/Riyadh'),
 });
 
 export type ServerEnv = z.infer<typeof serverEnvSchema>;

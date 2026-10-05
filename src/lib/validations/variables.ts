@@ -41,3 +41,17 @@ export const rawContentSchema = z.object({
 export const applyRawSchema = rawContentSchema.extend({ version: z.string().max(64) });
 
 export type SaveVariablesInput = z.infer<typeof saveVariablesSchema>;
+
+export const copyFromSchema = z
+  .object({
+    targetEnvironmentId: z.string().uuid(),
+    sourceEnvironmentId: z.string().uuid(),
+    mode: z.enum(['keys', 'values']),
+    overwrite: z.boolean(),
+  })
+  .refine((v) => v.targetEnvironmentId !== v.sourceEnvironmentId, {
+    message: 'sameEnvironment',
+    path: ['sourceEnvironmentId'],
+  });
+
+export const applyCopyFromSchema = copyFromSchema.and(z.object({ version: z.string().max(64) }));

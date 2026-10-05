@@ -31,7 +31,8 @@
     "switchLanguage": "العربية",
     "switchLanguageLabel": "Switch to Arabic",
     "openMenu": "Open menu",
-    "unsavedConfirm": "You have unsaved changes that will be lost. Continue?"
+    "unsavedConfirm": "You have unsaved changes that will be lost. Continue?",
+    "activity": "Activity"
   },
   "projects": {
     "title": "Projects",
@@ -80,6 +81,11 @@
       "description": "This permanently deletes the project with its {environments, plural, one {# environment} other {# environments}} and {variables, plural, one {# variable} other {# variables}}. This can't be undone.",
       "confirm": "Delete permanently",
       "deleted": "Project deleted"
+    },
+    "notFound": {
+      "title": "Project not found",
+      "description": "This project may have been deleted or its slug changed.",
+      "back": "Back to projects"
     }
   },
   "auth": {
@@ -154,7 +160,8 @@
       "description": "{count, plural, =0 {This permanently deletes the environment.} one {This permanently deletes the environment and its # variable.} other {This permanently deletes the environment and its # variables.}} This can't be undone.",
       "confirm": "Delete environment",
       "deleted": "{name} environment deleted"
-    }
+    },
+    "compare": "Compare environments"
   },
   "variables": {
     "modes": {
@@ -237,6 +244,102 @@
       "applied": ".env file applied",
       "appliedSummary": "{created} added, {updated} updated, {deleted} deleted.",
       "applyFailed": "Couldn't apply"
+    },
+    "copyFrom": {
+      "trigger": "Copy from…",
+      "noSources": "No other environment has variables yet.",
+      "title": "Copy variables into {target}",
+      "description": "Copy keys (or keys with values) from another environment of this project.",
+      "unsavedBlock": "You have unsaved changes in the editor. Save or discard them before copying.",
+      "source": "Source environment",
+      "count": "{count, plural, one {# variable} other {# variables}}",
+      "modes": {
+        "keys": {
+          "label": "Keys only",
+          "hint": "Missing keys are created with empty values to fill in later. No secret values are copied."
+        },
+        "values": {
+          "label": "Keys and values",
+          "hint": "Values are copied as-is and re-encrypted for the target environment."
+        }
+      },
+      "overwrite": "Overwrite values of keys that already exist in the target",
+      "summary": "{add} to add · {overwrite} to overwrite · {skip} to skip",
+      "more": "+{count} more",
+      "confirm": "{count, plural, =0 {Nothing to copy} one {Copy # variable} other {Copy # variables}}",
+      "done": "Copied from {source} into {target}",
+      "doneSummary": "{created} added, {updated} overwritten."
+    },
+    "download": {
+      "trigger": "Download",
+      "label": "Download {file}",
+      "empty": "No variables to download.",
+      "started": "Downloading {file}"
+    }
+  },
+  "compare": {
+    "metaTitle": "Compare environments · {project}",
+    "title": "Compare environments",
+    "summary": "{keys, plural, one {# key} other {# keys}} across {environments, plural, one {# environment} other {# environments}} · {incomplete, plural, =0 {every key is everywhere} one {# key missing somewhere} other {# keys missing somewhere}}",
+    "searchPlaceholder": "Search keys...",
+    "onlyMissing": "Only keys with gaps",
+    "caption": "Which keys exist in each environment",
+    "keyColumn": "Key",
+    "missingCount": "{count} missing",
+    "complete": "Complete",
+    "present": "Present",
+    "missing": "Missing",
+    "missingIn": "{key} is missing in {environment}",
+    "allComplete": "No missing keys 🎉",
+    "noMatches": "No matching keys.",
+    "empty": {
+      "title": "Nothing to compare yet",
+      "description": "Add variables to this project's environments to see which keys each one is missing."
+    }
+  },
+  "activity": {
+    "title": "Activity",
+    "subtitle": "Everything that happened in the vault. Secret values are never logged — only keys.",
+    "filterLabel": "Filter by type",
+    "categories": {
+      "all": "All",
+      "auth": "Sign-ins",
+      "projects": "Projects",
+      "environments": "Environments",
+      "variables": "Variables"
+    },
+    "empty": {
+      "title": "No activity yet",
+      "description": "Sign-ins and changes to projects and variables will show up here."
+    },
+    "older": "Older activity →",
+    "newest": "← Newest",
+    "ip": "IP",
+    "reasons": {
+      "unknown_email": "unknown email",
+      "bad_password": "wrong password"
+    },
+    "messages": {
+      "auth_login": "Signed in",
+      "auth_logout": "Signed out",
+      "auth_login_failed": "Failed sign-in as <code>{email}</code>",
+      "admin_created": "Admin account created from the CLI",
+      "admin_password_reset": "Admin password reset — all sessions signed out",
+      "project_created": "Created project <b>{project}</b>",
+      "project_deleted": "Deleted project <b>{project}</b>{count, plural, =0 {} one { with # variable} other { with # variables}}",
+      "project_renamed": "Renamed project <b>{from}</b> to <b>{to}</b>",
+      "project_slug_changed": "Changed the slug of <b>{project}</b> from <code>{from}</code> to <code>{to}</code>",
+      "project_updated": "Updated project <b>{project}</b>",
+      "environment_added": "Added <b>{environment}</b> to <b>{project}</b>",
+      "environment_deleted": "Deleted <b>{environment}</b> from <b>{project}</b>{count, plural, =0 {} one { with # variable} other { with # variables}}",
+      "variables_saved": "Saved variables in <b>{project}</b> · {environment}",
+      "variables_imported": "Imported a .env file into <b>{project}</b> · {environment}",
+      "variables_copied_from": "Copied variables from {source} into <b>{project}</b> · {environment}",
+      "variables_revealed_all": "Revealed all values of <b>{project}</b> · {environment} ({count})",
+      "variables_exported": "Downloaded <code>{file}</code> from <b>{project}</b> ({count})",
+      "variable_revealed": "Revealed <code>{key}</code> in <b>{project}</b> · {environment}",
+      "variable_copied": "Copied <code>{key}</code> from <b>{project}</b> · {environment}",
+      "unknown": "Action <code>{action}</code>"
     }
   }
 }

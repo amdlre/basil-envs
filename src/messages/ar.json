@@ -31,7 +31,8 @@
     "switchLanguage": "English",
     "switchLanguageLabel": "التبديل إلى الإنجليزية",
     "openMenu": "فتح القائمة",
-    "unsavedConfirm": "لديك تغييرات غير محفوظة ستُفقد. هل تريد المتابعة؟"
+    "unsavedConfirm": "لديك تغييرات غير محفوظة ستُفقد. هل تريد المتابعة؟",
+    "activity": "سجل النشاط"
   },
   "projects": {
     "title": "المشاريع",
@@ -80,6 +81,11 @@
       "description": "سيُحذف المشروع نهائياً مع {environments, plural, zero {} one {بيئته الوحيدة} two {بيئتيه} few {# بيئات} many {# بيئة} other {# بيئة}} و{variables, plural, zero {دون متغيرات} one {متغير واحد} two {متغيرين} few {# متغيرات} many {# متغيرًا} other {# متغير}}. لا يمكن التراجع عن هذا الإجراء.",
       "confirm": "حذف نهائي",
       "deleted": "تم حذف المشروع"
+    },
+    "notFound": {
+      "title": "المشروع غير موجود",
+      "description": "ربما حُذف هذا المشروع أو تغيّر معرّفه.",
+      "back": "العودة إلى المشاريع"
     }
   },
   "auth": {
@@ -154,7 +160,8 @@
       "description": "{count, plural, zero {ستُحذف البيئة نهائياً.} one {ستُحذف البيئة نهائياً مع متغير واحد.} two {ستُحذف البيئة نهائياً مع متغيرين.} few {ستُحذف البيئة نهائياً مع # متغيرات.} many {ستُحذف البيئة نهائياً مع # متغيرًا.} other {ستُحذف البيئة نهائياً مع # متغير.}} لا يمكن التراجع عن هذا الإجراء.",
       "confirm": "حذف البيئة نهائياً",
       "deleted": "تم حذف بيئة {name}"
-    }
+    },
+    "compare": "مقارنة البيئات"
   },
   "variables": {
     "modes": {
@@ -237,6 +244,102 @@
       "applied": "تم تطبيق ملف ‎.env",
       "appliedSummary": "أُضيف {created}، عُدّل {updated}، حُذف {deleted}.",
       "applyFailed": "تعذّر التطبيق"
+    },
+    "copyFrom": {
+      "trigger": "نسخ من بيئة",
+      "noSources": "لا توجد بيئة أخرى تحتوي على متغيرات.",
+      "title": "نسخ متغيرات إلى {target}",
+      "description": "انسخ المفاتيح (أو المفاتيح مع القيم) من بيئة أخرى في المشروع نفسه.",
+      "unsavedBlock": "لديك تغييرات غير محفوظة في المحرر. احفظها أو تجاهلها قبل النسخ.",
+      "source": "البيئة المصدر",
+      "count": "{count, plural, one {متغير واحد} two {متغيران} few {# متغيرات} many {# متغيرًا} other {# متغير}}",
+      "modes": {
+        "keys": {
+          "label": "المفاتيح فقط",
+          "hint": "تُنشأ المفاتيح الناقصة بقيم فارغة لتعبئتها لاحقاً. لا تُنسخ أي قيم سرية."
+        },
+        "values": {
+          "label": "المفاتيح والقيم",
+          "hint": "تُنسخ القيم كما هي وتُعاد تشفيرها للبيئة الهدف."
+        }
+      },
+      "overwrite": "استبدال قيم المفاتيح الموجودة مسبقاً في البيئة الهدف",
+      "summary": "سيُضاف {add} · سيُستبدل {overwrite} · سيُتخطّى {skip}",
+      "more": "و{count} غيرها",
+      "confirm": "{count, plural, =0 {لا شيء للنسخ} one {نسخ متغير واحد} two {نسخ متغيرين} few {نسخ # متغيرات} many {نسخ # متغيرًا} other {نسخ # متغير}}",
+      "done": "تم النسخ من {source} إلى {target}",
+      "doneSummary": "أُضيف {created}، استُبدل {updated}."
+    },
+    "download": {
+      "trigger": "تنزيل",
+      "label": "تنزيل الملف {file}",
+      "empty": "لا توجد متغيرات للتنزيل.",
+      "started": "جارٍ تنزيل {file}"
+    }
+  },
+  "compare": {
+    "metaTitle": "مقارنة البيئات · {project}",
+    "title": "مقارنة البيئات",
+    "summary": "{keys, plural, zero {لا مفاتيح} one {مفتاح واحد} two {مفتاحان} few {# مفاتيح} many {# مفتاحًا} other {# مفتاح}} عبر {environments, plural, one {بيئة واحدة} two {بيئتين} few {# بيئات} many {# بيئة} other {# بيئة}} · {incomplete, plural, zero {جميع المفاتيح مكتملة} one {مفتاح واحد ناقص في بيئة واحدة على الأقل} two {مفتاحان ناقصان في بيئة واحدة على الأقل} few {# مفاتيح ناقصة في بيئة واحدة على الأقل} many {# مفتاحًا ناقصًا في بيئة واحدة على الأقل} other {# مفتاح ناقص في بيئة واحدة على الأقل}}",
+    "searchPlaceholder": "ابحث عن مفتاح...",
+    "onlyMissing": "المفاتيح الناقصة فقط",
+    "caption": "المفاتيح الموجودة في كل بيئة",
+    "keyColumn": "المفتاح",
+    "missingCount": "{count, plural, one {ناقص واحد} two {ناقصان} few {# ناقصة} many {# ناقصًا} other {# ناقص}}",
+    "complete": "مكتملة",
+    "present": "موجود",
+    "missing": "ناقص",
+    "missingIn": "{key} غير موجود في {environment}",
+    "allComplete": "لا توجد مفاتيح ناقصة 🎉",
+    "noMatches": "لا توجد مفاتيح مطابقة.",
+    "empty": {
+      "title": "لا توجد متغيرات للمقارنة",
+      "description": "أضف متغيرات إلى بيئات المشروع لرؤية المفاتيح الناقصة في كل بيئة."
+    }
+  },
+  "activity": {
+    "title": "سجل النشاط",
+    "subtitle": "كل العمليات على الخزنة. لا تُسجَّل القيم السرية أبداً — المفاتيح فقط.",
+    "filterLabel": "تصفية حسب النوع",
+    "categories": {
+      "all": "الكل",
+      "auth": "الدخول",
+      "projects": "المشاريع",
+      "environments": "البيئات",
+      "variables": "المتغيرات"
+    },
+    "empty": {
+      "title": "لا يوجد نشاط",
+      "description": "ستظهر هنا عمليات الدخول وتعديلات المشاريع والمتغيرات."
+    },
+    "older": "نشاط أقدم ←",
+    "newest": "→ الأحدث",
+    "ip": "عنوان IP",
+    "reasons": {
+      "unknown_email": "بريد غير مسجّل",
+      "bad_password": "كلمة مرور خاطئة"
+    },
+    "messages": {
+      "auth_login": "تسجيل دخول",
+      "auth_logout": "تسجيل خروج",
+      "auth_login_failed": "محاولة دخول فاشلة بالبريد <code>{email}</code>",
+      "admin_created": "إنشاء حساب المسؤول من سطر الأوامر",
+      "admin_password_reset": "إعادة تعيين كلمة مرور المسؤول — أُنهيت جميع الجلسات",
+      "project_created": "إنشاء المشروع <b>{project}</b>",
+      "project_deleted": "حذف المشروع <b>{project}</b> {count, plural, zero {} one {مع متغير واحد} two {مع متغيرين} few {مع # متغيرات} many {مع # متغيرًا} other {مع # متغير}}",
+      "project_renamed": "إعادة تسمية المشروع <b>{from}</b> إلى <b>{to}</b>",
+      "project_slug_changed": "تغيير معرّف <b>{project}</b> من <code>{from}</code> إلى <code>{to}</code>",
+      "project_updated": "تحديث بيانات المشروع <b>{project}</b>",
+      "environment_added": "إضافة بيئة <b>{environment}</b> إلى <b>{project}</b>",
+      "environment_deleted": "حذف بيئة <b>{environment}</b> من <b>{project}</b> {count, plural, zero {} one {مع متغير واحد} two {مع متغيرين} few {مع # متغيرات} many {مع # متغيرًا} other {مع # متغير}}",
+      "variables_saved": "حفظ متغيرات <b>{project}</b> · {environment}",
+      "variables_imported": "استيراد ملف ‎.env إلى <b>{project}</b> · {environment}",
+      "variables_copied_from": "نسخ متغيرات من {source} إلى <b>{project}</b> · {environment}",
+      "variables_revealed_all": "إظهار كل قيم <b>{project}</b> · {environment} ({count})",
+      "variables_exported": "تنزيل <code>{file}</code> من <b>{project}</b> ({count})",
+      "variable_revealed": "إظهار قيمة <code>{key}</code> في <b>{project}</b> · {environment}",
+      "variable_copied": "نسخ قيمة <code>{key}</code> من <b>{project}</b> · {environment}",
+      "unknown": "عملية <code>{action}</code>"
     }
   }
 }

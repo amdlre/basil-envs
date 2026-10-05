@@ -1,4 +1,4 @@
-import { ChevronLeft, ChevronRight, Layers } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Columns3, Layers } from 'lucide-react';
 import { notFound } from 'next/navigation';
 import { getTranslations } from 'next-intl/server';
 
@@ -6,6 +6,7 @@ import { AddEnvironmentMenu } from '@/components/environment/add-environment-men
 import { EnvironmentPanel } from '@/components/environment/environment-panel';
 import { EnvironmentTabs } from '@/components/environment/environment-tabs';
 import { ProjectActionsMenu } from '@/components/project/project-actions-menu';
+import { ButtonLink } from '@/components/shared/button-link';
 import { EmptyState } from '@/components/shared/empty-state';
 import { getAvailableEnvironmentTypes, getProjectEnvironments } from '@/db/queries/environments';
 import { getProjectBySlug } from '@/db/queries/projects';
@@ -72,7 +73,21 @@ export default async function ProjectPage({ params, searchParams }: Props) {
               <p className="max-w-2xl pt-1 text-sm text-muted-foreground">{project.description}</p>
             )}
           </div>
-          <ProjectActionsMenu project={project} context="detail" />
+          <div className="flex shrink-0 items-center gap-2">
+            {environments.length > 1 && (
+              <ButtonLink
+                href={`/projects/${project.slug}/compare`}
+                variant="outline"
+                size="sm"
+                className="gap-2"
+              >
+                <Columns3 className="size-4" aria-hidden />
+                <span className="hidden sm:inline">{tEnv('compare')}</span>
+                <span className="sr-only sm:hidden">{tEnv('compare')}</span>
+              </ButtonLink>
+            )}
+            <ProjectActionsMenu project={project} context="detail" />
+          </div>
         </div>
       </div>
 
@@ -91,7 +106,18 @@ export default async function ProjectPage({ params, searchParams }: Props) {
               variableCount: e.variableCount,
             }))}
           />
-          <EnvironmentPanel environment={active} projectSlug={project.slug} />
+          <EnvironmentPanel
+            environment={active}
+            projectSlug={project.slug}
+            siblings={environments
+              .filter((e) => e.environmentId !== active.environmentId)
+              .map((e) => ({
+                environmentId: e.environmentId,
+                name: localizedTypeName(e, locale),
+                color: e.color,
+                variableCount: e.variableCount,
+              }))}
+          />
         </div>
       ) : (
         <EmptyState

@@ -10,7 +10,7 @@ import { computeVersion } from './version';
 
 import type { VariablePlan } from './plan';
 
-type Tx = Parameters<Parameters<Database['transaction']>[0]>[0];
+export type Tx = Parameters<Parameters<Database['transaction']>[0]>[0];
 type Executor = Database | Tx;
 
 export type StoredVariable = {

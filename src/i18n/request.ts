@@ -15,5 +15,10 @@ export default getRequestConfig(async ({ locale: override }) => {
 
   const loaded = (await import(`@/messages/${locale}.json`)) as { default: typeof messages };
 
-  return { locale, messages: loaded.default };
+  return {
+    locale,
+    messages: loaded.default,
+    // One configured zone for server and client rendering (no hydration mismatches).
+    timeZone: process.env.APP_TIME_ZONE ?? 'UTC',
+  };
 });

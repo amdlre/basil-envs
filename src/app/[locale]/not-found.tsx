@@ -1,7 +1,7 @@
-import { Button, Typography } from '@amdlre/design-system';
+import { Typography } from '@amdlre/design-system';
 import { getTranslations } from 'next-intl/server';
 
-import { Link } from '@/i18n/navigation';
+import { ButtonLink } from '@/components/shared/button-link';
 
 export default async function NotFound() {
   const t = await getTranslations('common.notFound');
@@ -13,9 +13,7 @@ export default async function NotFound() {
       </Typography>
       <p className="font-medium">{t('title')}</p>
       <p className="text-sm text-muted-foreground">{t('description')}</p>
-      <Button asChild>
-        <Link href="/projects">{t('backHome')}</Link>
-      </Button>
+      <ButtonLink href="/projects">{t('backHome')}</ButtonLink>
     </div>
   );
 }

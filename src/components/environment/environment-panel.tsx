@@ -2,6 +2,8 @@ import { Badge, Tooltip, TooltipContent, TooltipTrigger } from '@amdlre/design-s
 import { Lock } from 'lucide-react';
 import { getLocale, getTranslations } from 'next-intl/server';
 
+import { CopyFromButton, type CopySource } from '@/components/variables/copy-from-dialog';
+import { DownloadEnvButton } from '@/components/variables/download-button';
 import { VariablesWorkspace } from '@/components/variables/variables-workspace';
 import type { ProjectEnvironment } from '@/db/queries/environments';
 import { getMaskedVariables } from '@/db/queries/variables';
@@ -11,9 +13,14 @@ import { cn } from '@/lib/utils';
 import { DeleteEnvironmentButton } from './delete-environment-button';
 import { ENV_COLOR_CLASSES } from './env-colors';
 
-type Props = { environment: ProjectEnvironment; projectSlug: string };
+type Props = {
+  environment: ProjectEnvironment;
+  projectSlug: string;
+  /** Other environments of the project (copy-from sources). */
+  siblings: CopySource[];
+};
 
-export async function EnvironmentPanel({ environment, projectSlug }: Props) {
+export async function EnvironmentPanel({ environment, projectSlug, siblings }: Props) {
   const [t, locale, { variables, version }] = await Promise.all([
     getTranslations('environments'),
     getLocale(),
@@ -52,15 +59,28 @@ export async function EnvironmentPanel({ environment, projectSlug }: Props) {
           {description && <p className="text-sm text-muted-foreground">{description}</p>}
         </div>
 
-        {!environment.isProtected && (
-          <DeleteEnvironmentButton
-            environmentId={environment.environmentId}
-            projectSlug={projectSlug}
-            name={name}
-            names={{ nameEn: environment.nameEn, nameAr: environment.nameAr }}
-            variableCount={environment.variableCount}
+        <div className="flex flex-wrap items-center gap-2">
+          <CopyFromButton
+            targetEnvironmentId={environment.environmentId}
+            targetName={name}
+            version={version}
+            sources={siblings}
           />
-        )}
+          <DownloadEnvButton
+            environmentId={environment.environmentId}
+            fileName={`.env.${environment.slug}`}
+            disabled={variables.length === 0}
+          />
+          {!environment.isProtected && (
+            <DeleteEnvironmentButton
+              environmentId={environment.environmentId}
+              projectSlug={projectSlug}
+              name={name}
+              names={{ nameEn: environment.nameEn, nameAr: environment.nameAr }}
+              variableCount={environment.variableCount}
+            />
+          )}
+        </div>
       </div>
 
       <VariablesWorkspace

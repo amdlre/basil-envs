@@ -4,8 +4,8 @@ import { eq } from 'drizzle-orm';
 import { refresh } from 'next/cache';
 
 import { getDb } from '@/db';
-import { auditLogs, environments, environmentTypes, envVariables, projects } from '@/db/schema';
-import { fail, ok, type ActionResult } from '@/lib/action-result';
+import { auditLogs, environments, environmentTypes, envVariables } from '@/db/schema';
+import { fail, ok } from '@/lib/action-result';
 import { DecryptionError } from '@/lib/crypto';
 import { parseEnv, serializeEnv, type ParseIssue, type ParseWarning } from '@/lib/env-parser';
 import { authedAction } from '@/lib/safe-action';
@@ -17,77 +17,16 @@ import {
   revealVariableSchema,
   saveVariablesSchema,
 } from '@/lib/validations/variables';
+import { commitPlan, withDecryptionGuard } from '@/lib/variables/commit';
+import { buildRawPlan, validatePlan, type RawDiff } from '@/lib/variables/plan';
 import {
-  buildRawPlan,
-  isEmptyPlan,
-  prunePlan,
-  validatePlan,
-  type RawDiff,
-  type VariablePlan,
-} from '@/lib/variables/plan';
-import {
-  applyPlan,
   loadEnvironment,
   loadStoredVariables,
   openValue,
   versionOf,
-  type AppliedChanges,
   type EnvironmentContext,
   type StoredVariable,
 } from '@/lib/variables/store';
-
-type SaveSummary = { created: number; updated: number; renamed: number; deleted: number };
-
-const summarize = (c: AppliedChanges): SaveSummary => ({
-  created: c.created.length,
-  updated: c.updated.length,
-  renamed: c.renamed.length,
-  deleted: c.deleted.length,
-});
-
-/**
- * Locks the environment, checks the optimistic version, validates and applies the plan,
- * and writes one audit entry (keys only — never values).
- */
-async function commitPlan(
-  environmentId: string,
-  version: string,
-  buildPlan: (rows: StoredVariable[]) => VariablePlan,
-  auditAction: string,
-  auditExtra: Record<string, unknown> = {},
-): Promise<ActionResult<SaveSummary>> {
-  return getDb().transaction(async (tx) => {
-    const env = await loadEnvironment(tx, environmentId, { lock: true });
-    if (!env) return fail('notFound');
-
-    const rows = await loadStoredVariables(tx, environmentId);
-    if (versionOf(rows) !== version) return fail('stale');
-
-    const plan = prunePlan(rows, buildPlan(rows));
-    const errors = validatePlan(rows, plan);
-    if (Object.keys(errors).length > 0) return fail('validation', errors);
-    if (isEmptyPlan(plan)) {
-      return ok({ created: 0, updated: 0, renamed: 0, deleted: 0 });
-    }
-
-    const changes = await applyPlan(tx, environmentId, rows, plan);
-    await tx.update(projects).set({ updatedAt: new Date() }).where(eq(projects.id, env.projectId));
-    await tx.insert(auditLogs).values({
-      action: auditAction,
-      entity: 'environment',
-      entityId: environmentId,
-      metadata: { projectId: env.projectId, environment: env.typeSlug, ...changes, ...auditExtra },
-    });
-    return ok(summarize(changes));
-  });
-}
-
-function withDecryptionGuard<T>(run: () => Promise<ActionResult<T>>): Promise<ActionResult<T>> {
-  return run().catch((error: unknown) => {
-    if (error instanceof DecryptionError) return fail('decryptionFailed');
-    throw error;
-  });
-}
 
 // ─── Editor ──────────────────────────────────────────────────────────────────
 
@@ -214,7 +153,7 @@ export const applyRawAction = authedAction(async (_session, input: unknown) => {
     commitPlan(
       environmentId,
       version,
-      (rows) =>
+      ({ rows }) =>
         buildRawPlan(
           rows.map((row) => ({ id: row.id, key: row.key, value: openValue(environmentId, row) })),
           entries,
