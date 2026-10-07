@@ -67,8 +67,8 @@ export async function ActivityEntry({
       <span
         className={cn(
           'mt-0.5 flex size-8 shrink-0 items-center justify-center rounded-full',
-          tone === 'danger' && 'bg-red-500/10 text-red-400',
-          tone === 'warning' && 'bg-amber-500/10 text-amber-400',
+          tone === 'danger' && 'bg-red-500/10 text-red-600 dark:text-red-400',
+          tone === 'warning' && 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
           tone === 'default' && 'bg-muted text-muted-foreground',
         )}
       >
@@ -99,15 +99,23 @@ export async function ActivityEntry({
             <KeyChips
               sign="+"
               keys={changes.created}
-              className="bg-emerald-500/10 text-emerald-300"
+              className="bg-emerald-500/10 text-emerald-700 dark:text-emerald-300"
             />
-            <KeyChips sign="~" keys={changes.updated} className="bg-amber-500/10 text-amber-300" />
+            <KeyChips
+              sign="~"
+              keys={changes.updated}
+              className="bg-amber-500/10 text-amber-700 dark:text-amber-300"
+            />
             <KeyChips
               sign="→"
               keys={changes.renamed.map((r) => `${r.from} → ${r.to}`)}
-              className="bg-sky-500/10 text-sky-300"
+              className="bg-sky-500/10 text-sky-700 dark:text-sky-300"
             />
-            <KeyChips sign="−" keys={changes.deleted} className="bg-red-500/10 text-red-400" />
+            <KeyChips
+              sign="−"
+              keys={changes.deleted}
+              className="bg-red-500/10 text-red-600 dark:text-red-400"
+            />
           </ul>
         )}
 

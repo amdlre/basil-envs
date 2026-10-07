@@ -32,7 +32,11 @@
     "switchLanguageLabel": "Switch to Arabic",
     "openMenu": "Open menu",
     "unsavedConfirm": "You have unsaved changes that will be lost. Continue?",
-    "activity": "Activity"
+    "activity": "Activity",
+    "theme": {
+      "toLight": "Switch to light mode",
+      "toDark": "Switch to dark mode"
+    }
   },
   "projects": {
     "title": "Projects",

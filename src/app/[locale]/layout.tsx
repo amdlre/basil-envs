@@ -1,10 +1,12 @@
 import { Cairo, Geist_Mono, Inter } from 'next/font/google';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { getTranslations } from 'next-intl/server';
 
 import { themeToCss } from '@/config/theme';
 import { localeDirection, routing } from '@/i18n/routing';
+import { parseTheme, THEME_COLOR, THEME_COOKIE } from '@/lib/theme';
 import { Providers } from '@/providers';
 
 import type { Metadata, Viewport } from 'next';
@@ -52,10 +54,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export const viewport: Viewport = {
-  themeColor: '#090909',
-  colorScheme: 'dark',
-};
+export async function generateViewport(): Promise<Viewport> {
+  const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
+  return { themeColor: THEME_COLOR[theme], colorScheme: theme };
+}
 
 export default async function LocaleLayout({ children, params }: Props) {
   const { locale } = await params;
@@ -63,12 +65,15 @@ export default async function LocaleLayout({ children, params }: Props) {
 
   const dir = localeDirection[locale];
   const appFont = locale === 'ar' ? cairo : inter;
+  // Rendered server-side from the cookie, so the first paint already has the right theme.
+  const theme = parseTheme((await cookies()).get(THEME_COOKIE)?.value);
 
   return (
     <html
       lang={locale}
       dir={dir}
-      className={`dark ${appFont.variable} ${mono.variable}`}
+      className={`${theme === 'dark' ? 'dark' : ''}${appFont.variable} ${mono.variable}`}
+      style={{ colorScheme: theme }}
       suppressHydrationWarning
     >
       <head>
@@ -76,7 +81,9 @@ export default async function LocaleLayout({ children, params }: Props) {
       </head>
       <body>
         <NextIntlClientProvider>
-          <Providers dir={dir}>{children}</Providers>
+          <Providers dir={dir} theme={theme}>
+            {children}
+          </Providers>
         </NextIntlClientProvider>
       </body>
     </html>

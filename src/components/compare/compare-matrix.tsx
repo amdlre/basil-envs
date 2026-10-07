@@ -95,8 +95,8 @@ export function CompareMatrix({ projectSlug, environments, rows }: Props) {
                       className={cn(
                         'rounded-full px-1.5 text-[11px] font-normal tabular-nums',
                         env.missing > 0
-                          ? 'bg-red-500/10 text-red-400'
-                          : 'bg-emerald-500/10 text-emerald-400',
+                          ? 'bg-red-500/10 text-red-600 dark:text-red-400'
+                          : 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400',
                       )}
                     >
                       {env.missing > 0 ? t('missingCount', { count: env.missing }) : t('complete')}
@@ -123,13 +123,13 @@ export function CompareMatrix({ projectSlug, environments, rows }: Props) {
                     <td key={env.id} className="px-3 py-2 text-center">
                       {present ? (
                         <Check
-                          className="mx-auto size-4 text-emerald-400/80"
+                          className="mx-auto size-4 text-emerald-600 dark:text-emerald-400/80"
                           aria-label={t('present')}
                         />
                       ) : (
                         <Link
                           href={`/projects/${projectSlug}?env=${env.slug}`}
-                          className="inline-block rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-400 hover:bg-red-500/20"
+                          className="inline-block rounded-full bg-red-500/10 px-2 py-0.5 text-xs text-red-600 hover:bg-red-500/20 dark:text-red-400"
                           aria-label={t('missingIn', { key: row.key, environment: env.name })}
                         >
                           {t('missing')}

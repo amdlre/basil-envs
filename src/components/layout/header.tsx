@@ -2,6 +2,7 @@ import { Suspense } from 'react';
 
 import { LanguageSwitcher } from '@/components/shared/language-switcher';
 import { Logo } from '@/components/shared/logo';
+import { ThemeToggle } from '@/components/shared/theme-toggle';
 
 import { MobileNav } from './mobile-nav';
 import { NavLinks } from './nav-links';
@@ -18,6 +19,7 @@ export function Header({ email }: { email: string }) {
           <Suspense>
             <LanguageSwitcher />
           </Suspense>
+          <ThemeToggle />
           <UserMenu email={email} />
         </div>
       </div>

@@ -297,9 +297,9 @@ export function RawEditor({ environmentId, fileName, version, variableCount }: P
 }
 
 const DIFF_STYLES = {
-  added: { icon: Plus, className: 'text-emerald-400 bg-emerald-500/10' },
-  changed: { icon: Pencil, className: 'text-amber-300 bg-amber-500/10' },
-  removed: { icon: Minus, className: 'text-red-400 bg-red-500/10 line-through' },
+  added: { icon: Plus, className: 'text-emerald-600 dark:text-emerald-400 bg-emerald-500/10' },
+  changed: { icon: Pencil, className: 'text-amber-700 dark:text-amber-300 bg-amber-500/10' },
+  removed: { icon: Minus, className: 'text-red-600 dark:text-red-400 bg-red-500/10 line-through' },
 } as const;
 
 function DiffLine({

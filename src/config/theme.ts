@@ -29,7 +29,7 @@ const darkColors = {
 } satisfies Required<ThemeColors>;
 
 const lightColors = {
-  background: '0 0% 100%',
+  background: '0 0% 98%',
   foreground: '0 0% 9%',
   card: '0 0% 100%',
   cardForeground: '0 0% 9%',

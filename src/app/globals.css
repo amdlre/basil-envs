@@ -43,6 +43,10 @@ html:root {
   --radius: 0.625rem;
 }
 
+:root {
+  color-scheme: light;
+}
+
 .dark {
   color-scheme: dark;
 }
