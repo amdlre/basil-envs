@@ -7,6 +7,7 @@ import { getTranslations } from 'next-intl/server';
 import { themeToCss } from '@/config/theme';
 import { localeDirection, routing } from '@/i18n/routing';
 import { parseTheme, THEME_COLOR, THEME_COOKIE } from '@/lib/theme';
+import { cn } from '@/lib/utils';
 import { Providers } from '@/providers';
 
 import type { Metadata, Viewport } from 'next';
@@ -72,7 +73,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <html
       lang={locale}
       dir={dir}
-      className={`${theme === 'dark' ? 'dark' : ''}${appFont.variable} ${mono.variable}`}
+      className={cn(theme === 'dark' && 'dark', appFont.variable, mono.variable)}
       style={{ colorScheme: theme }}
       suppressHydrationWarning
     >

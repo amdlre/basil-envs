@@ -11,7 +11,13 @@ import { users } from '@/db/schema';
 import { redirect } from '@/i18n/navigation';
 import { routing } from '@/i18n/routing';
 
-import { LOGIN_PATH, SESSION_COOKIE, SESSION_TTL_SECONDS } from './constants';
+import {
+  EXPIRED_SESSION_COOKIE,
+  LOGIN_PATH,
+  SESSION_COOKIE,
+  SESSION_COOKIE_OPTIONS,
+  SESSION_TTL_SECONDS,
+} from './constants';
 import { passwordFingerprint } from './password';
 import { signSessionToken, verifySessionToken } from './tokens';
 
@@ -31,17 +37,14 @@ export async function createSession(user: { id: string; passwordHash: string }):
   });
 
   (await cookies()).set(SESSION_COOKIE, token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'strict',
-    path: '/',
+    ...SESSION_COOKIE_OPTIONS,
     maxAge: SESSION_TTL_SECONDS,
     priority: 'high',
   });
 }
 
 export async function deleteSession(): Promise<void> {
-  (await cookies()).delete(SESSION_COOKIE);
+  (await cookies()).set(EXPIRED_SESSION_COOKIE);
 }
 
 /**

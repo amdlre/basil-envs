@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { routing } from '@/i18n/routing';
-import { LOGIN_PATH, SESSION_COOKIE } from '@/lib/auth/constants';
+import { EXPIRED_SESSION_COOKIE, LOGIN_PATH } from '@/lib/auth/constants';
 
 /**
  * Reached when a session JWT is still validly signed but no longer valid server-side
@@ -14,6 +14,6 @@ export function GET(request: NextRequest) {
   const locale = routing.locales.find((l) => l === param) ?? routing.defaultLocale;
 
   const response = NextResponse.redirect(new URL(`/${locale}${LOGIN_PATH}`, request.url));
-  response.cookies.delete(SESSION_COOKIE);
+  response.cookies.set(EXPIRED_SESSION_COOKIE);
   return response;
 }

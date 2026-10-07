@@ -2,7 +2,13 @@ import { NextResponse, type NextRequest } from 'next/server';
 import createMiddleware from 'next-intl/middleware';
 
 import { routing, type Locale } from '@/i18n/routing';
-import { HOME_PATH, LOGIN_PATH, PUBLIC_PATHS, SESSION_COOKIE } from '@/lib/auth/constants';
+import {
+  EXPIRED_SESSION_COOKIE,
+  HOME_PATH,
+  LOGIN_PATH,
+  PUBLIC_PATHS,
+  SESSION_COOKIE,
+} from '@/lib/auth/constants';
 import { verifySessionToken } from '@/lib/auth/tokens';
 
 const intlMiddleware = createMiddleware(routing);
@@ -37,7 +43,7 @@ export async function proxy(request: NextRequest) {
     if (path !== '/') url.searchParams.set('next', `${path}${search}`);
     const response = NextResponse.redirect(url);
     // Drop an invalid/expired cookie so it isn't re-sent on every request.
-    if (request.cookies.has(SESSION_COOKIE)) response.cookies.delete(SESSION_COOKIE);
+    if (request.cookies.has(SESSION_COOKIE)) response.cookies.set(EXPIRED_SESSION_COOKIE);
     return response;
   }
 
