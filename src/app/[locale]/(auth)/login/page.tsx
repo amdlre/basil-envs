@@ -1,7 +1,8 @@
-import { KeyRound, ShieldCheck } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { getTranslations } from 'next-intl/server';
 
 import { LoginForm } from '@/components/auth/login-form';
+import { BrandMark } from '@/components/shared/brand-mark';
 import type { Locale } from '@/i18n/routing';
 
 import type { Metadata } from 'next';
@@ -25,9 +26,7 @@ export default async function LoginPage({ searchParams }: Props) {
   return (
     <div className="w-full max-w-sm space-y-6">
       <div className="flex flex-col items-center gap-3 text-center">
-        <span className="flex size-11 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-          <KeyRound className="size-5" aria-hidden />
-        </span>
+        <BrandMark size={48} priority />
         <div className="space-y-1">
           <p className="text-xs tracking-wide text-muted-foreground uppercase">
             {common('appName')}

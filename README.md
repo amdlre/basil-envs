@@ -1,3 +1,10 @@
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="public/brand/logo-mark.svg">
+    <img src="public/brand/logo-mark-dark.svg" alt="Env Vault" width="72" height="72">
+  </picture>
+</p>
+
 # Env Vault · خزنة المتغيرات
 
 A private, self-hosted vault that is the single source of truth for the environment variables of all your projects.
